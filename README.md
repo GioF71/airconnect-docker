@@ -34,7 +34,7 @@ PUID|Group used to run the application, defaults to `1000`
 PGID|Group used to run the application, defaults to `1000`
 PREFER_STATIC|Prefer `-static` version of the executable, defaults to `no`
 AIRCONNECT_MODE|AirConnect mode: `upnp` or `cast`, defaults to `upnp`
-CODEC|Format used to send HTTP audio, refer to the AirConnect [README.md](https://github.com/philippe44/AirConnect/blob/master/README.md) file.
+CODEC|Format used to send HTTP audio, refer to the AirConnect [documentation](https://github.com/philippe44/AirConnect).
 
 ## Run
 
