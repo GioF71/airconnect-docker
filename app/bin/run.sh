@@ -17,8 +17,8 @@ if [ -z "${PGID}" ]; then
   echo "Setting default value for PGID: ["$PGID"]"
 fi
 
-DEFAULT_USER_NAME=spotc
-DEFAULT_GROUP_NAME=spotc
+DEFAULT_USER_NAME=airc
+DEFAULT_GROUP_NAME=airc
 DEFAULT_HOME_DIR=/home/$DEFAULT_USER_NAME
 
 USER_NAME=$DEFAULT_USER_NAME
