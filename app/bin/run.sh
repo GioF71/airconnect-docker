@@ -85,21 +85,26 @@ version=$(cat /app/bin/version.txt)
 
 echo "Using AirConnect [${AIRCONNECT_MODE}] version [${version}]"
 
-if [ ! -f /config/config.xml ]; then
+CONFIG_FILE_NAME="config.xml"
+if [[ -n "${CONFIG_FILE_PREFIX}" ]]; then
+    CONFIG_FILE_NAME="${CONFIG_FILE_PREFIX}-config.xml"
+fi
+
+if [ ! -f /config/$CONFIG_FILE_NAME ]; then
     echo "Configuration file not found, creating reference configuration file ..."
-    CREATE_CFG_FILE="$binary_file -i /config/config.xml"    
+    CREATE_CFG_FILE="$binary_file -i /config/$CONFIG_FILE_NAME"    
     echo "Command Line (config file creation): ["$CREATE_CFG_FILE"]"
     su - $USER_NAME -c "$CREATE_CFG_FILE"
     echo "Configuration file created."
+else
+    echo "Configuration file [/config/$CONFIG_FILE_NAME] already exists"
 fi
 
-CMD_LINE="$binary_file -x /config/config.xml -Z"
+CMD_LINE="$binary_file -x /config/$CONFIG_FILE_NAME -Z"
 
 if [[ -n "${CODEC}" ]]; then
     CMD_LINE="$CMD_LINE -c ${CODEC}"
 fi
-
-
 
 echo "Command Line: ["$CMD_LINE"]"
 su - $USER_NAME -c "$CMD_LINE"
