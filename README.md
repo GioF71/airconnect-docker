@@ -35,6 +35,7 @@ PGID|Group used to run the application, defaults to `1000`
 PREFER_STATIC|Prefer `-static` version of the executable, defaults to `no`
 AIRCONNECT_MODE|AirConnect mode: `upnp` or `cast`, defaults to `upnp`
 CODEC|Format used to send HTTP audio, refer to the AirConnect [documentation](https://github.com/philippe44/AirConnect)
+LATENCY|Value for argument `-l`, set to `1000:2000` for Sonos and Heos players
 CONFIG_FILE_PREFIX|Prefix for the config file, empty by default
 
 ## Run
@@ -91,6 +92,7 @@ services:
 
 DATE|DESCRIPTION
 :---|:---
+2023-12-05|Add support for LATENCY (see [#1](https://github.com/GioF71/airconnect-docker/issues/1))
 2023-12-05|Bump to version [1.5.4](https://github.com/philippe44/AirConnect/releases/tag/1.5.4)
 2023-12-02|Bump to version [1.5.3](https://github.com/philippe44/AirConnect/releases/tag/1.5.3)
 2023-11-28|Bump to version [1.5.0](https://github.com/philippe44/AirConnect/releases/tag/1.5.0)

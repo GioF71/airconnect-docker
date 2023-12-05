@@ -103,7 +103,13 @@ fi
 CMD_LINE="$binary_file -x /config/$CONFIG_FILE_NAME -Z"
 
 if [[ -n "${CODEC}" ]]; then
+    echo "Setting CODEC to [${CODEC}] ..."
     CMD_LINE="$CMD_LINE -c ${CODEC}"
+fi
+
+if [[ -n "${LATENCY}" ]]; then
+    echo "Setting LATENCY to [${LATENCY}] ..."
+    CMD_LINE="$CMD_LINE -l ${LATENCY}"
 fi
 
 echo "Command Line: ["$CMD_LINE"]"
