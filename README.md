@@ -1,7 +1,7 @@
 # airconnect-docker
 
 A docker image for [AirConnect](https://github.com/philippe44/AirConnect).  
-The image includes version [1.5.4](https://github.com/philippe44/AirConnect/releases/tag/1.5.4).  
+The latest images include version [1.6.0](https://github.com/philippe44/AirConnect/releases/tag/1.6.0).  
 
 ## References
 
@@ -92,6 +92,7 @@ services:
 
 DATE|DESCRIPTION
 :---|:---
+2023-12-18|Bump to version [1.6.0](https://github.com/philippe44/AirConnect/releases/tag/1.6.0)
 2023-12-05|Add support for LATENCY (see [#1](https://github.com/GioF71/airconnect-docker/issues/1))
 2023-12-05|Bump to version [1.5.4](https://github.com/philippe44/AirConnect/releases/tag/1.5.4)
 2023-12-02|Bump to version [1.5.3](https://github.com/philippe44/AirConnect/releases/tag/1.5.3)
