@@ -90,6 +90,27 @@ if [[ -n "${CONFIG_FILE_PREFIX}" ]]; then
     CONFIG_FILE_NAME="${CONFIG_FILE_PREFIX}-config.xml"
 fi
 
+
+if [[ -n "${LOG_LEVEL_ALL}" ]]; then
+    CMD_LINE="$CMD_LINE -d all=${LOG_LEVEL_ALL}"
+fi
+
+if [[ -n "${LOG_LEVEL_MAIN}" ]]; then
+    CMD_LINE="$CMD_LINE -d main=${LOG_LEVEL_MAIN}"
+fi
+
+if [[ -n "${LOG_LEVEL_RAOP}" ]]; then
+    CMD_LINE="$CMD_LINE -d raop=${LOG_LEVEL_RAOP}"
+fi
+
+if [[ -n "${LOG_LEVEL_UTIL}" ]]; then
+    CMD_LINE="$CMD_LINE -d util=${LOG_LEVEL_UTIL}"
+fi
+
+if [[ -n "${LOG_LEVEL_UPNP}" ]]; then
+    CMD_LINE="$CMD_LINE -d upnp=${LOG_LEVEL_UPNP}"
+fi
+
 if [ ! -f /config/$CONFIG_FILE_NAME ]; then
     echo "Configuration file not found, creating reference configuration file ..."
     CREATE_CFG_FILE="$binary_file -i /config/$CONFIG_FILE_NAME"    
