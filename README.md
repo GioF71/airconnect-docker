@@ -42,6 +42,9 @@ LOG_LEVEL_MAIN|Enables log of type `main` using the provided value
 LOG_LEVEL_UTIL|Enables log of type `util` using the provided value
 LOG_LEVEL_UPNP|Enables log of type `upnp` using the provided value
 LOG_LEVEL_RAOP|Enables log of type `raop` using the provided value
+ENABLE_AUTO_NETWORK_IFACE|Allows to automatically set NETWORK_IFACE, defaults to `yes`, but this does not override an explicitly set `NETWORK_IFACE` variable anyway
+NETWORK_IFACE|Sets the network interface
+AUTO_NETWORK_IFACE_URL|Used for selecting iface, defaults to `1.1.1.1`
 
 ## Run
 
@@ -99,6 +102,7 @@ The changelog of the upstream project is available [here](https://github.com/phi
 
 DATE|DESCRIPTION
 :---|:---
+2024-03-09|Auto select network interface (see [#3](https://github.com/GioF71/airconnect-docker/issues/3))
 2024-01-26|Add support for log levels
 2024-01-15|Bump to version [1.7.0](https://github.com/philippe44/AirConnect/releases/tag/1.7.0)
 2024-01-09|Bump to version [1.6.3](https://github.com/philippe44/AirConnect/releases/tag/1.6.3)
