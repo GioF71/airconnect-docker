@@ -1,7 +1,7 @@
 # airconnect-docker
 
 A docker image for [AirConnect](https://github.com/philippe44/AirConnect).  
-The latest images include version [1.7.0](https://github.com/philippe44/AirConnect/releases/tag/1.7.0).  
+The latest images include version [1.8.3](https://github.com/philippe44/AirConnect/releases/tag/1.8.3).  
 
 ## References
 
@@ -103,6 +103,7 @@ The changelog of the upstream project is available [here](https://github.com/phi
 
 DATE|DESCRIPTION
 :---|:---
+2024-03-15|Bump to version [1.8.3](https://github.com/philippe44/AirConnect/releases/tag/1.8.3)
 2024-03-11|Prefer ip over iface for the select network interface
 2024-03-09|Auto select network interface (see [#3](https://github.com/GioF71/airconnect-docker/issues/3))
 2024-01-26|Add support for log levels
