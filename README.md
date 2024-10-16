@@ -47,13 +47,17 @@ NETWORK_SELECT|Sets the network interface or ip and optionally port
 AUTO_NETWORK_URL|Used for selecting the network to use, defaults to `1.1.1.1`
 NETWORK_USE_IP|Use ip instead of network card for `-b`, defaults to `yes`
 
+### Log Level Values
+
+Please note that the possible values for the variables starting with `LOG_LEVEL_` are the following: `error`, `warn`, `info`, `debug`, `sdebug`.
+
 ## Run
 
 Simple docker-compose files below.
 
 ### UPnP mode
 
-```
+```text
 ---
 version: "3"
 
@@ -76,7 +80,7 @@ services:
 
 ### Chromecast mode
 
-```
+```text
 ---
 version: "3"
 
