@@ -17,6 +17,10 @@ if [ -z "${PGID}" ]; then
   echo "Setting default value for PGID: ["$PGID"]"
 fi
 
+DEFAULT_CONFIG_DIR=/config
+FALLBACK_CONFIG_DIR=/tmp
+CONFIG_DIR=$DEFAULT_CONFIG_DIR
+
 DEFAULT_USER_NAME=airc
 DEFAULT_GROUP_NAME=airc
 DEFAULT_HOME_DIR=/home/$DEFAULT_USER_NAME
@@ -25,34 +29,54 @@ USER_NAME=$DEFAULT_USER_NAME
 GROUP_NAME=$DEFAULT_GROUP_NAME
 HOME_DIR=$DEFAULT_HOME_DIR
 
-echo "Ensuring user with uid:[$PUID] gid:[$PGID] exists ...";
-### create group if it does not exist
-if [ ! $(getent group $PGID) ]; then
-    echo "Group with gid [$PGID] does not exist, creating..."
-    groupadd -g $PGID $GROUP_NAME
-    echo "Group [$GROUP_NAME] with gid [$PGID] created."
+uid=$(id -u)
+echo "Container is running with uid=[$uid]"
+user_mode=1
+echo "USER_MODE=[${USER_MODE}]"
+if [[ $uid -eq 0 ]]; then
+    if [[ -n "${USER_MODE}" ]]; then
+        if [[ "${USER_MODE^^}" == "NO" ]] || [[ "${USER_MODE^^}" == "N" ]]; then
+            user_mode=0
+        elif [[ "${USER_MODE^^}" != "YES" ]] && [[ "${USER_MODE^^}" != "Y" ]]; then
+            echo "Invalid USER_MODE=[${USER_MODE}]"
+            exit 1
+        fi
+    fi
 else
-    GROUP_NAME=$(getent group $PGID | cut -d: -f1)
-    echo "Group with gid [$PGID] name [$GROUP_NAME] already exists."
+    user_mode=0
 fi
-### create user if it does not exist
-if [ ! $(getent passwd $PUID) ]; then
-    echo "User with uid [$PUID] does not exist, creating..."
-    useradd -g $PGID -u $PUID -M $USER_NAME
-    echo "User [$USER_NAME] with uid [$PUID] created."
-else
-    USER_NAME=$(getent passwd $PUID | cut -d: -f1)
-    echo "user with uid [$PUID] name [$USER_NAME] already exists."
-    HOME_DIR="/home/$USER_NAME"
+echo "User mode enabled: [$user_mode]"
+
+if [[ $user_mode -eq 1 ]]; then
+    echo "Ensuring user with uid:[$PUID] gid:[$PGID] exists ...";
+    ### create group if it does not exist
+    if [ ! $(getent group $PGID) ]; then
+        echo "Group with gid [$PGID] does not exist, creating..."
+        groupadd -g $PGID $GROUP_NAME
+        echo "Group [$GROUP_NAME] with gid [$PGID] created."
+    else
+        GROUP_NAME=$(getent group $PGID | cut -d: -f1)
+        echo "Group with gid [$PGID] name [$GROUP_NAME] already exists."
+    fi
+    ### create user if it does not exist
+    if [ ! $(getent passwd $PUID) ]; then
+        echo "User with uid [$PUID] does not exist, creating..."
+        useradd -g $PGID -u $PUID -M $USER_NAME
+        echo "User [$USER_NAME] with uid [$PUID] created."
+    else
+        USER_NAME=$(getent passwd $PUID | cut -d: -f1)
+        echo "user with uid [$PUID] name [$USER_NAME] already exists."
+        HOME_DIR="/home/$USER_NAME"
+    fi
+    ### create home directory
+    if [ ! -d "$HOME_DIR" ]; then
+        echo "Home directory [$HOME_DIR] not found, creating."
+        mkdir -p $HOME_DIR
+        echo ". done."
+    fi
+    chown -R $PUID:$PGID $HOME_DIR
+    chown -R $PUID:$PGID /config
 fi
-### create home directory
-if [ ! -d "$HOME_DIR" ]; then
-    echo "Home directory [$HOME_DIR] not found, creating."
-    mkdir -p $HOME_DIR
-    echo ". done."
-fi
-chown -R $PUID:$PGID $HOME_DIR
-chown -R $PUID:$PGID /config
 
 if [[ -z "${AIRCONNECT_MODE}" ]]; then
     AIRCONNECT_MODE=upnp
@@ -90,9 +114,31 @@ if [[ -n "${CONFIG_FILE_PREFIX}" ]]; then
     CONFIG_FILE_NAME="${CONFIG_FILE_PREFIX}-config.xml"
 fi
 
-if [ ! -f /config/$CONFIG_FILE_NAME ]; then
+use_config_volume=1
+if [[ -n "${USE_CONFIG_VOLUME}" ]]; then
+    if [[ "${USE_CONFIG_VOLUME^^}" == "NO" ]] || [[ "${USE_CONFIG_VOLUME^^}" == "N" ]]; then
+        use_config_volume=0
+    elif [[ "${USE_CONFIG_VOLUME^^}" != "YES" ]] && [[ "${USE_CONFIG_VOLUME^^}" != "Y" ]]; then
+        echo "Invalid USE_CONFIG_VOLUME=[${USE_CONFIG_VOLUME}]"
+        exit 1
+    fi
+fi
+
+if [ $use_config_volume -eq 1 ]; then
+    if [ -w "$CONFIG_DIR" ]; then
+        echo "Config directory [$CONFIG_DIR] is writable"
+    else
+        echo "Config directory [$CONFIG_DIR] is not writable, using $FALLBACK_CONFIG_DIR"
+        CONFIG_DIR=$FALLBACK_CONFIG_DIR
+    fi
+else
+    echo "USE_CONFIG_VOLUME=[${USE_CONFIG_VOLUME}], so we are using $FALLBACK_CONFIG_DIR"
+    CONFIG_DIR=$FALLBACK_CONFIG_DIR
+fi
+
+if [ ! -f $CONFIG_DIR/$CONFIG_FILE_NAME ]; then
     echo "Configuration file not found, creating reference configuration file ..."
-    CREATE_CFG_FILE="$binary_file -i /config/$CONFIG_FILE_NAME"    
+    CREATE_CFG_FILE="$binary_file -i $CONFIG_DIR/$CONFIG_FILE_NAME"    
     echo "Command Line (config file creation): ["$CREATE_CFG_FILE"]"
     su - $USER_NAME -c "$CREATE_CFG_FILE"
     echo "Configuration file created."
@@ -100,7 +146,7 @@ else
     echo "Configuration file [/config/$CONFIG_FILE_NAME] already exists"
 fi
 
-CMD_LINE="$binary_file -x /config/$CONFIG_FILE_NAME -Z"
+CMD_LINE="$binary_file -x $CONFIG_DIR/$CONFIG_FILE_NAME -Z"
 
 if [[ -n "${LOG_LEVEL_ALL}" ]]; then
     CMD_LINE="$CMD_LINE -d all=${LOG_LEVEL_ALL}"
@@ -160,4 +206,10 @@ else
 fi
 
 echo "Command Line: ["$CMD_LINE"]"
-su - $USER_NAME -c "$CMD_LINE"
+if [[ $user_mode -eq 1 ]]; then
+    echo "User mode enabled, PUID=[$PUID] PGID=[$PGID] USER_NAME=[$USER_NAME]"
+    exec su - $USER_NAME -c "$CMD_LINE"
+else
+    echo "User mode disabled"
+    eval "exec $CMD_LINE"
+fi

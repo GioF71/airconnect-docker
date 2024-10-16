@@ -30,6 +30,8 @@ There are currently just a few variables available to set, but more will come as
 
 VARIABLE|DESCRIPTION
 :---|:---
+USER_MODE|Allows running using PUID/PGID, defaults to `yes`
+USE_CONFIG_VOLUME|Use /config as the config directory, defaults to `yes`
 PUID|Group used to run the application, defaults to `1000`
 PGID|Group used to run the application, defaults to `1000`
 PREFER_STATIC|Prefer `-static` version of the executable, defaults to `no`
@@ -107,6 +109,7 @@ The changelog of the upstream project is available [here](https://github.com/phi
 
 DATE|DESCRIPTION
 :---|:---
+2024-10-16|Add variable USER_MODE and USE_CONFIG_VOLUME
 2024-03-15|Bump to version [1.8.3](https://github.com/philippe44/AirConnect/releases/tag/1.8.3)
 2024-03-11|Prefer ip over iface for the select network interface
 2024-03-09|Auto select network interface (see [#3](https://github.com/GioF71/airconnect-docker/issues/3))
