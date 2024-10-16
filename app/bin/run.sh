@@ -90,6 +90,17 @@ if [[ -n "${CONFIG_FILE_PREFIX}" ]]; then
     CONFIG_FILE_NAME="${CONFIG_FILE_PREFIX}-config.xml"
 fi
 
+if [ ! -f /config/$CONFIG_FILE_NAME ]; then
+    echo "Configuration file not found, creating reference configuration file ..."
+    CREATE_CFG_FILE="$binary_file -i /config/$CONFIG_FILE_NAME"    
+    echo "Command Line (config file creation): ["$CREATE_CFG_FILE"]"
+    su - $USER_NAME -c "$CREATE_CFG_FILE"
+    echo "Configuration file created."
+else
+    echo "Configuration file [/config/$CONFIG_FILE_NAME] already exists"
+fi
+
+CMD_LINE="$binary_file -x /config/$CONFIG_FILE_NAME -Z"
 
 if [[ -n "${LOG_LEVEL_ALL}" ]]; then
     CMD_LINE="$CMD_LINE -d all=${LOG_LEVEL_ALL}"
@@ -110,18 +121,6 @@ fi
 if [[ -n "${LOG_LEVEL_UPNP}" ]]; then
     CMD_LINE="$CMD_LINE -d upnp=${LOG_LEVEL_UPNP}"
 fi
-
-if [ ! -f /config/$CONFIG_FILE_NAME ]; then
-    echo "Configuration file not found, creating reference configuration file ..."
-    CREATE_CFG_FILE="$binary_file -i /config/$CONFIG_FILE_NAME"    
-    echo "Command Line (config file creation): ["$CREATE_CFG_FILE"]"
-    su - $USER_NAME -c "$CREATE_CFG_FILE"
-    echo "Configuration file created."
-else
-    echo "Configuration file [/config/$CONFIG_FILE_NAME] already exists"
-fi
-
-CMD_LINE="$binary_file -x /config/$CONFIG_FILE_NAME -Z"
 
 if [[ -n "${CODEC}" ]]; then
     echo "Setting CODEC to [${CODEC}] ..."
