@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE:-debian:stable-slim} AS BASE
+FROM ${BASE_IMAGE:-debian:stable-slim} AS base_image
 
 ARG AIR_CONNECT_VERSION=1.8.3
 
@@ -25,7 +25,7 @@ RUN /app/bin/cleanup.sh
 RUN rm /app/bin/cleanup.sh
 
 FROM scratch
-COPY --from=BASE / /
+COPY --from=base_image / /
 
 LABEL maintainer="GioF71"
 LABEL source="https://github.com/GioF71/airconnect-docker"
