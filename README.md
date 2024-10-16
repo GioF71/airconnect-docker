@@ -19,7 +19,7 @@ Docker images|[Docker Hub](https://hub.docker.com/r/giof71/airconnect)
 
 Simply build using the following:
 
-```
+```text
 docker build . -t giof71/airconnect:latest
 ```
 
