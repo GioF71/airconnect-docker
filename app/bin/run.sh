@@ -140,7 +140,13 @@ if [ ! -f $CONFIG_DIR/$CONFIG_FILE_NAME ]; then
     echo "Configuration file not found, creating reference configuration file ..."
     CREATE_CFG_FILE="$binary_file -i $CONFIG_DIR/$CONFIG_FILE_NAME"    
     echo "Command Line (config file creation): ["$CREATE_CFG_FILE"]"
-    su - $USER_NAME -c "$CREATE_CFG_FILE"
+    if [[ $user_mode -eq 1 ]]; then
+        echo "User mode enabled, PUID=[$PUID] PGID=[$PGID] USER_NAME=[$USER_NAME]"
+        exec su - $USER_NAME -c "$CREATE_CFG_FILE"
+    else
+        echo "User mode disabled"
+        eval "exec $CREATE_CFG_FILE"
+    fi
     echo "Configuration file created."
 else
     echo "Configuration file [/config/$CONFIG_FILE_NAME] already exists"
