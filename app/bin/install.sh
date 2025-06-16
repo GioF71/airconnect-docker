@@ -6,15 +6,17 @@
 mkdir /app/release -p
 mkdir /app/bin -p
 
-ARCH=`uname -m`
+ARCH=`dpkg --print-architecture`
 echo "ARCH=[$ARCH]"
 
-arch_amd64=x86_64
-arch_arm_v7=armv7l
-arch_arm_v8=aarch64
+arch_amd64=amd64
+arch_arm_v6=armel
+arch_arm_v7=armhf
+arch_arm_v8=arm64
 
 declare -A upnp_bin_file_name
 upnp_bin_file_name[$arch_amd64]="airupnp-linux-x86_64"
+upnp_bin_file_name[$arch_arm_v6]="airupnp-linux-armv6"
 upnp_bin_file_name[$arch_arm_v7]="airupnp-linux-arm"
 upnp_bin_file_name[$arch_arm_v8]="airupnp-linux-aarch64"
 
@@ -40,6 +42,7 @@ chmod 755 /app/bin/airupnp-linux-static
 
 declare -A cast_bin_file_name
 cast_bin_file_name[$arch_amd64]="aircast-linux-x86_64"
+cast_bin_file_name[$arch_arm_v6]="aircast-linux-armv6"
 cast_bin_file_name[$arch_arm_v7]="aircast-linux-arm"
 cast_bin_file_name[$arch_arm_v8]="aircast-linux-aarch64"
 
