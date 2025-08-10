@@ -57,7 +57,7 @@ Please note that the possible values for the variables starting with `LOG_LEVEL_
 
 You can generate a configuration file for the upnp version using the following command:
 
-```
+```text
 docker run -it \
   --user 1000:1000 \
   --network host \
@@ -65,14 +65,14 @@ docker run -it \
   -v ${PWD}:/config \
   --entrypoint /app/bin/airupnp-linux \
   giof71/airconnect \
-  -i /config/upnp-new.xml
+  -i /config/airconnect-upnp-new.xml
 ```
 
 The option `--user 1000:1000` is needed if the current directory is owned by your user (use the correct uid/gid if they are not 1000 and 1000 respectively).  
-This will result in a new file named `upnp-new.xml` in you current directory.  
+This will result in a new file named `airconnect-upnp-new.xml` in you current directory.  
 Similarly the command for the cast version is like the following:
 
-```
+```text
 docker run -it \
   --user 1000:1000 \
   --network host \
@@ -80,10 +80,10 @@ docker run -it \
   -v ${PWD}:/config \
   --entrypoint /app/bin/aircast-linux \
   giof71/airconnect \
-  -i /config/cast-new.xml
+  -i /config/airconnect-cast-new.xml
 ```
 
-The resulting file will be of course named `cast-new.xml`.  
+The resulting file will be of course named `airconnect-cast-new.xml`.  
 You can then modify your configuration files to your needs and use them in the your compose file(s) by putting them in the `/config` volume.
 
 ## Run
