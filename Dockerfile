@@ -1,7 +1,7 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE:-debian:stable-slim} AS base_image
 
-ARG AIR_CONNECT_VERSION=1.8.3
+ARG AIR_CONNECT_VERSION=1.9.1
 
 RUN mkdir /app/bin -p
 COPY app/bin/install-pkg.sh /app/bin/
