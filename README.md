@@ -142,6 +142,7 @@ The changelog of the upstream project is available [here](https://github.com/phi
 
 DATE|DESCRIPTION
 :---|:---
+2025-10-11|Build for arm/v5 instead of arm/v6
 2025-10-11|Bump to version [1.9.1](https://github.com/philippe44/AirConnect/releases/tag/1.9.1)
 2025-06-16|Add support for linux/arm/v6 (see [issue #8](https://github.com/GioF71/airconnect-docker/issues/8))
 2024-10-16|Add variable USER_MODE and USE_CONFIG_VOLUME
