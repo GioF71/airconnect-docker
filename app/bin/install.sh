@@ -16,7 +16,7 @@ arch_arm_v8=arm64
 
 declare -A upnp_bin_file_name
 upnp_bin_file_name[$arch_amd64]="airupnp-linux-x86_64"
-upnp_bin_file_name[$arch_arm_v6]="airupnp-linux-armv6"
+upnp_bin_file_name[$arch_arm_v6]="airupnp-linux-armv5"
 upnp_bin_file_name[$arch_arm_v7]="airupnp-linux-arm"
 upnp_bin_file_name[$arch_arm_v8]="airupnp-linux-aarch64"
 
