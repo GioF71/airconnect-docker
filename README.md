@@ -1,7 +1,7 @@
 # airconnect-docker
 
 A docker image for [AirConnect](https://github.com/philippe44/AirConnect).  
-The latest images include version [1.9.2](https://github.com/philippe44/AirConnect/releases/tag/1.9.2).  
+The latest images include version [1.9.3](https://github.com/philippe44/AirConnect/releases/tag/1.9.3).  
 
 ## References
 
@@ -142,6 +142,7 @@ The changelog of the upstream project is available [here](https://github.com/phi
 
 DATE|DESCRIPTION
 :---|:---
+2025-11-21|Bump to version [1.9.3](https://github.com/philippe44/AirConnect/releases/tag/1.9.3)
 2025-10-24|Bump to version [1.9.2](https://github.com/philippe44/AirConnect/releases/tag/1.9.2)
 2025-10-19|Fix build adding [libatomic1](https://packages.debian.org/trixie/libatomic1) (see [issue #14](https://github.com/GioF71/airconnect-docker/issues/14))
 2025-10-11|Build for arm/v5 instead of arm/v6
