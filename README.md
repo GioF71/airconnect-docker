@@ -1,7 +1,7 @@
 # airconnect-docker
 
 A docker image for [AirConnect](https://github.com/philippe44/AirConnect).  
-The latest images include version [1.12.2](https://github.com/philippe44/AirConnect/releases/tag/1.12.2).  
+The latest images include version [1.12.3](https://github.com/philippe44/AirConnect/releases/tag/1.12.3).  
 
 ## References
 
@@ -142,6 +142,7 @@ The changelog of the upstream project is available [here](https://github.com/phi
 
 DATE|DESCRIPTION
 :---|:---
+2026-09-25|Bump to version [1.12.3](https://github.com/philippe44/AirConnect/releases/tag/1.12.3)
 2026-09-24|Bump to version [1.12.2](https://github.com/philippe44/AirConnect/releases/tag/1.12.2)
 2026-09-07|Bump to version [1.11.3](https://github.com/philippe44/AirConnect/releases/tag/1.11.3)
 2026-08-08|Bump to version [1.11.2](https://github.com/philippe44/AirConnect/releases/tag/1.11.2)
