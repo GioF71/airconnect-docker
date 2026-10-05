@@ -1,12 +1,12 @@
 # airconnect-docker
 
-A docker image for [AirConnect](https://github.com/philippe44/AirConnect).  
-The latest images include version [1.12.3](https://github.com/philippe44/AirConnect/releases/tag/1.12.3).  
+A docker image for [AirConnect](https://github.com/philippe44/AirConnect).
+The latest images include version [1.12.4](https://github.com/philippe44/AirConnect/releases/tag/1.12.4).
 
 ## References
 
-This is based on [this project](https://github.com/philippe44/AirConnect) by [philippe44](https://github.com/philippe44).  
-It will let you use your upnp renderers (including those created with [upmpdcli](https://github.com/GioF71/upmpdcli-docker) and [mpd](https://github.com/giof71/mpd-alsa-docker)) and your Chromecast devices as AirPlay devices.  
+This is based on [this project](https://github.com/philippe44/AirConnect) by [philippe44](https://github.com/philippe44).
+It will let you use your upnp renderers (including those created with [upmpdcli](https://github.com/GioF71/upmpdcli-docker) and [mpd](https://github.com/giof71/mpd-alsa-docker)) and your Chromecast devices as AirPlay devices.
 
 ## Links
 
@@ -25,8 +25,8 @@ docker build . -t giof71/airconnect:latest
 
 ## Configuration
 
-Configuration is available through a set of environment variables.  
-There are currently just a few variables available to set, but more will come as soon as possible.  
+Configuration is available through a set of environment variables.
+There are currently just a few variables available to set, but more will come as soon as possible.
 
 VARIABLE|DESCRIPTION
 :---|:---
@@ -68,8 +68,8 @@ docker run -it \
   -i /config/airconnect-upnp-new.xml
 ```
 
-The option `--user 1000:1000` is needed if the current directory is owned by your user (use the correct uid/gid if they are not 1000 and 1000 respectively).  
-This will result in a new file named `airconnect-upnp-new.xml` in you current directory.  
+The option `--user 1000:1000` is needed if the current directory is owned by your user (use the correct uid/gid if they are not 1000 and 1000 respectively).
+This will result in a new file named `airconnect-upnp-new.xml` in you current directory.
 Similarly the command for the cast version is like the following:
 
 ```text
@@ -83,7 +83,7 @@ docker run -it \
   -i /config/airconnect-cast-new.xml
 ```
 
-The resulting file will be of course named `airconnect-cast-new.xml`.  
+The resulting file will be of course named `airconnect-cast-new.xml`.
 You can then modify your configuration files to your needs and use them in the your compose file(s) by putting them in the `/config` volume.
 
 ## Run
@@ -138,10 +138,11 @@ services:
 
 ## Changelog
 
-The changelog of the upstream project is available [here](https://github.com/philippe44/AirConnect/blob/master/CHANGELOG).  
+The changelog of the upstream project is available [here](https://github.com/philippe44/AirConnect/blob/master/CHANGELOG).
 
 DATE|DESCRIPTION
 :---|:---
+2026-10-05|Bump to version [1.12.4](https://github.com/philippe44/AirConnect/releases/tag/1.12.4)
 2026-09-25|Bump to version [1.12.3](https://github.com/philippe44/AirConnect/releases/tag/1.12.3)
 2026-09-24|Bump to version [1.12.2](https://github.com/philippe44/AirConnect/releases/tag/1.12.2)
 2026-09-07|Bump to version [1.11.3](https://github.com/philippe44/AirConnect/releases/tag/1.11.3)
